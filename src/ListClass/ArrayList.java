@@ -44,12 +44,43 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean add(E value) {
-        return false;
+        addLast(value);
+        return true;
     }
 
     @Override
     public void add(int index, E value) {
+        if(index < 0 || index > size){
+            throw new IndexOutOfBoundsException();
+        }
 
+        if(index == size){
+            addLast(value);
+        }else{
+            
+            if(size == array.length){
+                resize();
+            }
+
+            for (int i = size; i > index; i--) {
+                array[i] = array[i-1];
+            }
+
+            array[index] = value;
+            size++;
+        }
+    }
+
+    public void addLast(E value){
+        if(size == array.length){
+            resize();
+        }
+        array[size] = value;
+        size++;
+    }
+
+    public void addFirst(E value){
+        add(0, value);
     }
 
     @Override
