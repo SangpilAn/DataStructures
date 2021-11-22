@@ -4,7 +4,7 @@ import InterfaceForList.List;
 
 import java.util.Arrays;
 
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> implements List<E>, Cloneable {
     private static final int DEFAULT_CAPACITY = 10;
     private static final Object[] EMPTY_ARRAY = {};
 
@@ -178,5 +178,32 @@ public class ArrayList<E> implements List<E> {
         }
         size = 0;
         resize();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException, AssertionError{
+
+        ArrayList<?> clone = (ArrayList<?>) super.clone();
+
+        clone.array = new Object[size];
+
+        System.arraycopy(array, 0, clone.array, 0, size);
+
+        return clone;
+
+    }
+
+    public Object[] toArray(){
+        return Arrays.copyOf(array, size);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T[] toArray(T[] a){
+        if(a.length < size){
+            return (T[]) Arrays.copyOf(array, size, a.getClass());
+        }
+
+        System.arraycopy(array, 0, a, 0, size);
+        return a;
     }
 }
