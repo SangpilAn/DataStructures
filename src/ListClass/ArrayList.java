@@ -83,48 +83,100 @@ public class ArrayList<E> implements List<E> {
         add(0, value);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public E remove(int index) {
-        return null;
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
+
+        E element = (E) array[index];
+        array[index] = null;
+
+        for (int i = index; i < size; i++) {
+            array[i] = array[i+1];
+            array[i+1] = null;
+        }
+        size--;
+        resize();
+
+        return element;
     }
 
     @Override
     public boolean remove(E value) {
-        return false;
+        int index = indexOf(value);
+
+        if(index == -1){
+            return false;
+        }
+
+        remove(index);
+        return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public E get(int index) {
-        return null;
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException();
+        }
+
+        return (E) array[index];
     }
 
     @Override
     public void set(int index, E value) {
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException();
+        }else {
+            array[index] = value;
+        }
 
     }
 
     @Override
     public boolean contains(E value) {
-        return false;
+        return indexOf(value) >= 0;
     }
 
     @Override
     public int indexOf(E value) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if(array[i].equals(value)){
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public int LastIndexOf(Object value){
+        for (int i = size - 1; i >= 0; i--) {
+            if(array[i].equals(value)){
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < size; i++) {
+            array[i] = null;
+        }
+        size = 0;
+        resize();
     }
 }
