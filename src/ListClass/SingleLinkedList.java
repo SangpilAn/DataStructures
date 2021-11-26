@@ -88,12 +88,56 @@ public class SingleLinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if(index == 0){
+            return remove();
+        }
+
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node<E> preNode = search(index-1);
+        Node<E> targetNode = preNode.next;
+        Node<E> nextNode = targetNode.next;
+
+        E element = targetNode.data;
+
+        preNode.next = nextNode;
+
+        targetNode.next = null;
+        targetNode.data = null;
+        size--;
+
+        return element;
     }
 
     @Override
     public boolean remove(E value) {
-        return false;
+        Node<E> preNode = head;
+        Node<E> x = head;
+
+        for (; x != null; x = x.next){
+            if(value.equals(x.data)){
+                break;
+            }
+            preNode = x;
+        }
+
+        if(x == null){
+            return false;
+        }
+
+        if(x.equals(head)){
+            remove();
+        }else {
+            preNode.next = x.next;
+
+            x.data = null;
+            x.next = null;
+            size--;
+        }
+        return true;
+
     }
 
     public E remove(){
