@@ -165,36 +165,54 @@ public class SingleLinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        return null;
+        return search(index).data;
     }
 
     @Override
     public void set(int index, E value) {
-
+        Node<E> targetNode = search(index);
+        targetNode.data = value;
     }
 
     @Override
     public boolean contains(E value) {
-        return false;
+        return indexOf(value) >= 0;
     }
 
     @Override
     public int indexOf(E value) {
-        return 0;
+        Node<E> x = head;
+        int index = -1;
+
+        for (int i = 0; i < size; i++, x = x.next) {
+            if(value.equals(x.data)){
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public void clear() {
-
+        for(Node<E> x = head; x != null;){
+            Node<E> nextNode = x.next;
+            x.data = null;
+            x.next = null;
+            x = nextNode;
+        }
+        head = tail = null;
+        size = 0;
     }
 }
