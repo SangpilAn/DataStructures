@@ -181,14 +181,16 @@ public class ArrayList<E> implements List<E>, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException, AssertionError{
+    public Object clone(){
 
-        ArrayList<?> clone = (ArrayList<?>) super.clone();
-
-        clone.array = new Object[size];
-
-        System.arraycopy(array, 0, clone.array, 0, size);
-
+        ArrayList<?> clone = null;
+        try {
+            clone = (ArrayList<?>) super.clone();
+            clone.array = new Object[size];
+            System.arraycopy(array, 0, clone.array, 0, size);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         return clone;
 
     }
