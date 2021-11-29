@@ -1,29 +1,29 @@
 package ListClass;
 
-import ClassForList.Node;
+import ClassForList.SinglyNode;
 import InterfaceForList.List;
 
 import java.util.NoSuchElementException;
 
-public class SingleLinkedList<E> implements List<E> {
+public class SinglyLinkedList<E> implements List<E> {
 
-    private Node<E> head;
-    private Node<E> tail;
+    private SinglyNode<E> head;
+    private SinglyNode<E> tail;
     private int size;
 
-    SingleLinkedList(){
+    SinglyLinkedList(){
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
-    private Node<E> search(int index){
+    private SinglyNode<E> search(int index){
 
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         }
 
-        Node<E> x = head;
+        SinglyNode<E> x = head;
 
         for (int i = 0; i < index; i++) {
             x = x.next;
@@ -53,15 +53,15 @@ public class SingleLinkedList<E> implements List<E> {
             return;
         }
 
-        Node<E> newNode = new Node<>(value);
-        Node<E> preNode = search(index-1);
+        SinglyNode<E> newNode = new SinglyNode<>(value);
+        SinglyNode<E> preNode = search(index-1);
         newNode.next = preNode.next;
         preNode.next = newNode;
         size++;
     }
 
     public void addFirst(E value){
-        Node<E> newNode = new Node<>(value);
+        SinglyNode<E> newNode = new SinglyNode<>(value);
 
         newNode.next = head;
         head = newNode;
@@ -74,7 +74,7 @@ public class SingleLinkedList<E> implements List<E> {
     }
 
     public void addLast(E value){
-        Node<E> newNode = new Node<>(value);
+        SinglyNode<E> newNode = new SinglyNode<>(value);
 
         if(size == 0){
             addFirst(value);
@@ -96,9 +96,9 @@ public class SingleLinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
 
-        Node<E> preNode = search(index-1);
-        Node<E> targetNode = preNode.next;
-        Node<E> nextNode = targetNode.next;
+        SinglyNode<E> preNode = search(index-1);
+        SinglyNode<E> targetNode = preNode.next;
+        SinglyNode<E> nextNode = targetNode.next;
 
         E element = targetNode.data;
 
@@ -113,8 +113,8 @@ public class SingleLinkedList<E> implements List<E> {
 
     @Override
     public boolean remove(E value) {
-        Node<E> preNode = head;
-        Node<E> x = head;
+        SinglyNode<E> preNode = head;
+        SinglyNode<E> x = head;
 
         for (; x != null; x = x.next){
             if(value.equals(x.data)){
@@ -141,14 +141,14 @@ public class SingleLinkedList<E> implements List<E> {
     }
 
     public E remove(){
-        Node<E> headNode = head;
+        SinglyNode<E> headNode = head;
 
         if(headNode == null){
             throw new NoSuchElementException();
         }
 
         E element = headNode.data;
-        Node<E> nextNode = head.next;
+        SinglyNode<E> nextNode = head.next;
 
         headNode.next = null;
         headNode.data = null;
@@ -170,7 +170,7 @@ public class SingleLinkedList<E> implements List<E> {
 
     @Override
     public void set(int index, E value) {
-        Node<E> targetNode = search(index);
+        SinglyNode<E> targetNode = search(index);
         targetNode.data = value;
     }
 
@@ -181,7 +181,7 @@ public class SingleLinkedList<E> implements List<E> {
 
     @Override
     public int indexOf(E value) {
-        Node<E> x = head;
+        SinglyNode<E> x = head;
         int index = -1;
 
         for (int i = 0; i < size; i++, x = x.next) {
@@ -206,8 +206,8 @@ public class SingleLinkedList<E> implements List<E> {
 
     @Override
     public void clear() {
-        for(Node<E> x = head; x != null;){
-            Node<E> nextNode = x.next;
+        for(SinglyNode<E> x = head; x != null;){
+            SinglyNode<E> nextNode = x.next;
             x.data = null;
             x.next = null;
             x = nextNode;

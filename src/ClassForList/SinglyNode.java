@@ -1,11 +1,11 @@
 package ClassForList;
 
-public class Node<E> {
+public class SinglyNode<E> {
 
     public E data;
-    public Node<E> next;
+    public SinglyNode<E> next;
 
-    public Node(E data){
+    public SinglyNode(E data){
         this.data = data;
         this.next = null;
     }
