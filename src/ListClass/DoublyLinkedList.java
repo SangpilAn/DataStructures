@@ -3,6 +3,8 @@ package ListClass;
 import ClassForList.DoublyNode;
 import InterfaceForList.List;
 
+import java.util.NoSuchElementException;
+
 public class DoublyLinkedList<E> implements List<E> {
 
     private DoublyNode<E> head;
@@ -103,12 +105,94 @@ public class DoublyLinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+
+        if(index == 0){
+            return remove();
+        }
+
+        DoublyNode<E> preNode = search(index-1);
+        DoublyNode<E> targetNode = preNode.next;
+        DoublyNode<E> nextNode = targetNode.next;
+        E element = targetNode.data;
+
+        targetNode.data = null;
+        targetNode.next = null;
+        targetNode.prev = null;
+        if(targetNode.equals(tail)){
+            preNode.next = null;
+            tail = preNode;
+        }else{
+            preNode.next = nextNode;
+            nextNode.prev = preNode;
+        }
+        size--;
+
+        return element;
     }
 
     @Override
     public boolean remove(E value) {
-        return false;
+        DoublyNode<E> preNode = head;
+        DoublyNode<E> x = head;
+
+        for (; x != null; x = x.next){
+            if(value.equals(x.data)){
+                break;
+            }
+            preNode = x;
+        }
+
+        if(x == null){
+            return false;
+        }
+
+        if(x.equals(head)){
+            remove();
+        }else{
+            DoublyNode<E> nextNode = x.next;
+            x.data = null;
+            x.next = null;
+            x.prev = null;
+
+            if(nextNode != null){
+                preNode.next = nextNode;
+                nextNode.prev = preNode;
+            }else{
+                tail = preNode;
+            }
+        }
+
+        size--;
+
+        return true;
+    }
+
+    public E remove(){
+        if(head == null){
+            throw new NoSuchElementException();
+        }
+
+        DoublyNode<E> nextNode = head.next;
+        E element = head.data;
+
+        head.data = null;
+        head.next = null;
+
+        if(nextNode !=null){
+            nextNode.prev = null;
+        }
+
+        head = nextNode;
+        size--;
+
+        if(size == 0){
+            tail = null;
+        }
+
+        return element;
     }
 
     @Override
