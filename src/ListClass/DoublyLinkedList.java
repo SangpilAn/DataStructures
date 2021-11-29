@@ -197,36 +197,68 @@ public class DoublyLinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        return null;
+        return search(index).data;
     }
 
     @Override
     public void set(int index, E value) {
+        DoublyNode<E> replaceNode = search(index);
+        replaceNode.data = null;
+        replaceNode.data = value;
 
     }
 
     @Override
     public boolean contains(E value) {
-        return false;
+        return indexOf(value) >= 0;
     }
 
     @Override
     public int indexOf(E value) {
-        return 0;
+        int index = 0;
+
+        for(DoublyNode<E> x = head; x != null; x = x.next, index++){
+            if(value.equals(x.data)){
+                return index;
+            }
+        }
+
+        return -1;
+    }
+
+    public int lastIndexOf(E value){
+        int index = size - 1;
+
+        for(DoublyNode<E> x = tail; x != null; x = x.prev, index--){
+            if(value.equals(x.data)){
+                return index;
+            }
+        }
+
+        return -1;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public void clear() {
+        for(DoublyNode<E> x = head; x != null;){
+            DoublyNode<E> nextNode = x.next;
+            x.data = null;
+            x.next = null;
+            x.prev = null;
+            x = nextNode;
+        }
 
+        head = tail = null;
+        size = 0;
     }
 }
