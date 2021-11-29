@@ -1,7 +1,7 @@
 package ListClass;
 
 import ClassForList.DoublyNode;
-import InterfaceForList.List;
+import Interface_from.List;
 
 import java.util.NoSuchElementException;
 

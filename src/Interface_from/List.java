@@ -1,4 +1,4 @@
-package InterfaceForList;
+package Interface_from;
 
 public interface List<E> {
 

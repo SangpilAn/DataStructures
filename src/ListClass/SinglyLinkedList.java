@@ -1,7 +1,7 @@
 package ListClass;
 
 import ClassForList.SinglyNode;
-import InterfaceForList.List;
+import Interface_from.List;
 
 import java.util.NoSuchElementException;
 

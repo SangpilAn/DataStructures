@@ -1,6 +1,6 @@
 package ListClass;
 
-import InterfaceForList.List;
+import Interface_from.List;
 
 import java.util.Arrays;
 
