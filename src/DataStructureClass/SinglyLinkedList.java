@@ -1,6 +1,6 @@
-package ListClass;
+package DataStructureClass;
 
-import ClassForList.SinglyNode;
+import ClassForDataStructures.SinglyNode;
 import Interface_from.List;
 
 import java.util.NoSuchElementException;

@@ -1,4 +1,4 @@
-package ListClass;
+package DataStructureClass;
 
 import Interface_from.List;
 

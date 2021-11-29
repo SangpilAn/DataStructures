@@ -1,6 +1,6 @@
 package Exam;
 
-import ListClass.ArrayList;
+import DataStructureClass.ArrayList;
 
 public class ArrayListExam {
     public void exam(){

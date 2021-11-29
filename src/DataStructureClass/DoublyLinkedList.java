@@ -1,6 +1,6 @@
-package ListClass;
+package DataStructureClass;
 
-import ClassForList.DoublyNode;
+import ClassForDataStructures.DoublyNode;
 import Interface_from.List;
 
 import java.util.NoSuchElementException;

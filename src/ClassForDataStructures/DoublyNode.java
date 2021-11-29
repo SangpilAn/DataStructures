@@ -1,4 +1,4 @@
-package ClassForList;
+package ClassForDataStructures;
 
 public class DoublyNode<E> {
 
