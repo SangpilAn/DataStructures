@@ -1,4 +1,5 @@
 # IntelliJ Build Source ignore
+.idea/
 /out/
 
 # Compiled class file
