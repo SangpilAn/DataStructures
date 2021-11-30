@@ -2,6 +2,9 @@ package DataStructureClass;
 
 import Interface_from.StackInterface;
 
+import java.util.Arrays;
+import java.util.EmptyStackException;
+
 public class Stack<E> implements StackInterface<E> {
 
     private static final int DEFAULT_CAPACITY = 10;
@@ -21,41 +24,93 @@ public class Stack<E> implements StackInterface<E> {
     }
 
     private void resize(){
+        if(Arrays.equals(array, EMPTY_ARRAY)){
+            array = new Object[DEFAULT_CAPACITY];
+            return;
+        }
+
+        int arrayCapacity = array.length;
+
+        if(size == arrayCapacity){
+            int newCapacity = arrayCapacity * 2;
+
+            array = Arrays.copyOf(array, newCapacity);
+            return;
+        }
+
+        if(size < (arrayCapacity / 2)){
+            int newCapacity = arrayCapacity / 2;
+
+            array = Arrays.copyOf(array, Math.max(DEFAULT_CAPACITY, newCapacity));
+        }
 
     }
 
     @Override
     public E push(E item) {
-        return null;
+        if(size == array.length){
+            resize();
+        }
+
+        array[size] = item;
+        size++;
+
+        return item;
     }
 
     @Override
     public E pop() {
-        return null;
+        if(size == 0){
+            throw new EmptyStackException();
+        }
+
+        @SuppressWarnings("unchecked")
+        E item = (E) array[size-1];
+
+        array[size-1] = null;
+        size--;
+        resize();
+
+        return item;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public E peek() {
-        return null;
+        if(size == 0){
+            throw new EmptyStackException();
+        }
+
+        return (E) array[size-1];
     }
 
     @Override
     public int search(Object value) {
-        return 0;
+        for (int i = size - 1; i >= 0 ; i--) {
+            if(value.equals(array[i])){
+                return size - i;
+            }
+        }
+
+        return -1;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < size; i++) {
+            array[i] = null;
+        }
+        size = 0;
+        resize();
     }
 
     @Override
     public boolean empty() {
-        return false;
+        return size == 0;
     }
 }
