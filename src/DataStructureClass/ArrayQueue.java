@@ -2,6 +2,8 @@ package DataStructureClass;
 
 import Interface_from.Queue;
 
+import java.util.NoSuchElementException;
+
 public class ArrayQueue<E> implements Queue<E> {
 
     private static final int DEFAULT_CAPACITY = 64;
@@ -59,13 +61,86 @@ public class ArrayQueue<E> implements Queue<E> {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public E poll() {
-        return null;
+
+        if(size == 0){
+            return null;
+        }
+
+        front = (front + 1) % array.length;
+
+        E item = (E) array[front];
+
+        array[front] = null;
+        size--;
+
+        if(array.length > DEFAULT_CAPACITY && size < (array.length / 4)){
+            resize(Math.max(DEFAULT_CAPACITY, array.length / 2));
+        }
+
+        return item;
+    }
+
+    public E remove(){
+
+        E item = poll();
+
+        if(item == null){
+            throw new NoSuchElementException();
+        }
+
+        return item;
     }
 
     @Override
     public E peek() {
-        return null;
+
+        if(size ==0){
+            return null;
+        }
+
+        @SuppressWarnings("unchecked")
+        E item = (E) array[(front + 1) % array.length];
+        return item;
+    }
+
+    public E element(){
+        E item = peek();
+
+        if(item == null){
+            throw new NoSuchElementException();
+        }
+
+        return item;
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public boolean contains(Object value){
+        int start = (front + 1) % array.length;
+
+        for (int i = 0, idx = start; i < size; i++, idx = (idx + 1) % array.length) {
+            if(array[idx].equals(value)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public  void clear(){
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = null;
+        }
+
+        front = rear = size = 0;
     }
 }
