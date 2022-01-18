@@ -1,11 +1,11 @@
 package ClassForDataStructures;
 
-public class SinglyNode<E> {
+public class Node<E> {
 
     public E data;
-    public SinglyNode<E> next;
+    public Node<E> next;
 
-    public SinglyNode(E data){
+    public Node(E data){
         this.data = data;
         this.next = null;
     }

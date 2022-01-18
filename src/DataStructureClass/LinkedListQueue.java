@@ -1,14 +1,14 @@
 package DataStructureClass;
 
-import ClassForDataStructures.QueueNode;
+import ClassForDataStructures.Node;
 import Interface_from.Queue;
 
 import java.util.NoSuchElementException;
 
 public class LinkedListQueue<E> implements Queue<E> {
 
-    private QueueNode<E> head;
-    private QueueNode<E> tail;
+    private Node<E> head;
+    private Node<E> tail;
     private int size;
 
     public LinkedListQueue(){
@@ -19,7 +19,7 @@ public class LinkedListQueue<E> implements Queue<E> {
 
     @Override
     public boolean offer(E value) {
-        QueueNode<E> newNode = new QueueNode<E>(value);
+        Node<E> newNode = new Node<E>(value);
 
         if(size == 0){
             head = newNode;
@@ -42,7 +42,7 @@ public class LinkedListQueue<E> implements Queue<E> {
 
         E element = head.data;
 
-        QueueNode<E> nextNode = head.next;
+        Node<E> nextNode = head.next;
 
         head.data = null;
         head.next = null;
@@ -95,7 +95,7 @@ public class LinkedListQueue<E> implements Queue<E> {
 
     public boolean contains(Object value){
 
-        for (QueueNode<E> x = head; x != null; x = x.next){
+        for (Node<E> x = head; x != null; x = x.next){
             if(value.equals(x.data)){
                 return true;
             }
@@ -105,9 +105,9 @@ public class LinkedListQueue<E> implements Queue<E> {
 
     public void clear(){
 
-        for (QueueNode<E> x = head; x != null; ){
+        for (Node<E> x = head; x != null; ){
 
-            QueueNode<E> next = x.next;
+            Node<E> next = x.next;
             x.data = null;
             x.next = null;
             x = next;
